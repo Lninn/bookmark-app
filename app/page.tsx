@@ -1,5 +1,3 @@
-import db from '@/app/api/db'
-
 const originalUrls = [
   "https://www.baidu.com/",
   "https://music.163.com/#",
@@ -12,25 +10,6 @@ const descptionReg = /<meta name="description" content="(?<content>[^"]+)"/;
 const TitlteReg = /<title(.*)>(?<title>.*)<\/title>/;
 
 async function createData(urls: string[]) {
-
-  const conenct = await db()
-
-  console.log('conenct ', conenct)
-
-  // connect to database
-
-  /* find all the data in our database */
-  // const result = await Pet.find({})
-
-  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
-  // const pets = result.map((doc) => {
-  //   const pet = JSON.parse(JSON.stringify(doc))
-  //   return pet
-  // })
-
-  // return { props: { items: [{ id: 123456 }] } }
-
-
   const data = [];
 
   let i = 0;
