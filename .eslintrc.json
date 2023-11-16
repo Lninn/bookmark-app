@@ -1,3 +1,31 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/internal-regex": "^next/"
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "plugin:@typescript-eslint/stylistic"
+  ],
+  "rules": {
+    "semi": "off",
+    "quotes": "error"
+  }
 }
