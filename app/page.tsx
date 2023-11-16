@@ -144,8 +144,8 @@ export default async function Home() {
 
       {data.map((info, idx) => {
         return (
-          <div key={idx} className="flex flex-col gap-4">
-            <div>
+          <div key={idx} className="flex flex-col gap-4 border p-8">
+            <div className="flex gap-2">
               <img style={{ width: 24, height: 24 }} src={info.icon} />
               {info.title}
             </div>
