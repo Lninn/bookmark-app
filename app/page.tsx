@@ -1,3 +1,5 @@
+import db from '@/app/api/db'
+
 const originalUrls = [
   "https://www.baidu.com/",
   "https://music.163.com/#",
@@ -10,6 +12,10 @@ const descptionReg = /<meta name="description" content="(?<content>[^"]+)"/;
 const TitlteReg = /<title(.*)>(?<title>.*)<\/title>/;
 
 async function createData(urls: string[]) {
+
+  const conenct = await db()
+
+  console.log('conenct ', conenct)
 
   // connect to database
 
