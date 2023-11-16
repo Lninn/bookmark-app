@@ -2,6 +2,7 @@ import React from "react";
 import Demo from "./Demo";
 import db from "@/app/api/db"
 import Bookmark from "@/models/Bookmark"
+import File from "./File";
 
 async function getData() {
   await db()
@@ -31,6 +32,7 @@ export default async function Dashboard() {
         </div>
       </div>
       <Demo />
+      <File />
     </div>
   );
 }
