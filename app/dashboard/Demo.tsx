@@ -1,10 +1,10 @@
 "use client"
 
-import React from 'react'
+import React from "react"
 
 const Demo = () => {
-  const [name, setName] = React.useState('')
-  const [age, setAge] = React.useState('')
+  const [name, setName] = React.useState("")
+  const [age, setAge] = React.useState("")
 
   async function handleAdd() {
     const params = {
@@ -13,8 +13,8 @@ const Demo = () => {
     }
 
     try {
-      const res = await fetch('/api', {
-        method: 'POST',
+      const res = await fetch("/api", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -23,13 +23,13 @@ const Demo = () => {
       const data = await res.json()
 
       if (data.success) {
-        console.log('Demo 请求成功')
+        console.log("Demo 请求成功")
         location.reload()
       } else {
-        console.log('Demo 请求失败 ', data.msg)
+        console.log("Demo 请求失败 ", data.msg)
       }
     } catch (error) {
-      console.log('error')
+      console.log("error")
     }
   }
 

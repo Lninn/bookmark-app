@@ -1,6 +1,6 @@
-import db from '@/app/api/db'
-import Bookmark from '@/models/Bookmark'
-import mongoose from 'mongoose'
+import db from "@/app/api/db"
+import Bookmark from "@/models/Bookmark"
+import mongoose from "mongoose"
 
 export async function GET() {
   await db()
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
   try {
     await Bookmark.validate(data)
-    console.log('验证成功')
+    console.log("验证成功")
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
       return Response.json({
@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     } else {
       return Response.json({
         success: false,
-        msg: 'system errpor'
+        msg: "system errpor"
       })
     }
   }

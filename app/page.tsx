@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 const originalUrls = [
   "https://www.baidu.com/",
   "https://music.163.com/#",
@@ -85,7 +87,7 @@ async function createItem(url: string) {
     title: emptyTxt,
     tags: emptyTxt,
     desc: emptyTxt,
-    icon: '',
+    icon: "",
   };
 
   let originalDoc = "";
@@ -146,7 +148,7 @@ export default async function Home() {
         return (
           <div key={idx} className="flex flex-col gap-4 border p-8">
             <div className="flex gap-2">
-              <img className="w-6 h-6" src={info.icon} />
+              <Image className='w-6 h-6' src={info.icon} alt='icon' />
               {info.title}
             </div>
             <div>{info.url}</div>
