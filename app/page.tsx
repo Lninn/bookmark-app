@@ -156,11 +156,7 @@ async function createItem(url: string) {
   return info;
 }
 
-interface Props {
-  items: { id: number }[]
-}
-
-export default async function Home({ items }: Props) {
+export default async function Home() {
   const data = await createData(originalUrls);
 
   return (
