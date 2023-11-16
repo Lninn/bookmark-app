@@ -10,6 +10,21 @@ const descptionReg = /<meta name="description" content="(?<content>[^"]+)"/;
 const TitlteReg = /<title(.*)>(?<title>.*)<\/title>/;
 
 async function createData(urls: string[]) {
+
+  // connect to database
+
+  /* find all the data in our database */
+  // const result = await Pet.find({})
+
+  /* Ensures all objectIds and nested objectIds are serialized as JSON data */
+  // const pets = result.map((doc) => {
+  //   const pet = JSON.parse(JSON.stringify(doc))
+  //   return pet
+  // })
+
+  // return { props: { items: [{ id: 123456 }] } }
+
+
   const data = [];
 
   let i = 0;
@@ -135,7 +150,11 @@ async function createItem(url: string) {
   return info;
 }
 
-export default async function Home() {
+interface Props {
+  items: { id: number }[]
+}
+
+export default async function Home({ items }: Props) {
   const data = await createData(originalUrls);
 
   return (
@@ -146,7 +165,7 @@ export default async function Home() {
         return (
           <div key={idx} className="flex flex-col gap-4 border p-8">
             <div className="flex gap-2">
-              <img style={{ width: 24, height: 24 }} src={info.icon} />
+              <img className="w-6 h-6" src={info.icon} />
               {info.title}
             </div>
             <div>{info.url}</div>
