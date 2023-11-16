@@ -1,7 +1,7 @@
 import React from "react";
 import Demo from "./Demo";
-import db from '@/app/api/db'
-import Bookmark from '@/models/Bookmark'
+import db from "@/app/api/db"
+import Bookmark from "@/models/Bookmark"
 
 async function getData() {
   await db()

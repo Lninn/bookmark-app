@@ -21,8 +21,7 @@
     "plugin:@typescript-eslint/stylistic"
   ],
   "plugins": [
-    "@typescript-eslint",
-    "plugin:@typescript-eslint/stylistic"
+    "@typescript-eslint"
   ],
   "rules": {
     "semi": "off",
