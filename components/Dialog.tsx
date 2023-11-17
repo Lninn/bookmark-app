@@ -1,5 +1,6 @@
 "use client"
 
+import React from "react"
 import ReactDOM from "react-dom"
 
 interface IProps {
@@ -14,6 +15,13 @@ const Dialog = (props: IProps) => {
     onClose,
     children
   } = props
+
+  const [isClient, setIsClient] = React.useState(false)
+ 
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+ 
 
   const wrapDom = (
     <div>
@@ -35,9 +43,13 @@ const Dialog = (props: IProps) => {
     </div>
   )
 
+  if (!isClient) {
+    return null
+  }
+
   return ReactDOM.createPortal(
     open ? <div>{wrapDom}</div> : null,
-    document.body
+    window.document.body
   )
 }
 
