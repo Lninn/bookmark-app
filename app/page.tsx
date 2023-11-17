@@ -1,5 +1,3 @@
-import UrlsParse from "./UrlsParse";
-
 export default async function Home() {
   return (
     <main className="p-24 flex flex-col gap-8">
@@ -8,9 +6,9 @@ export default async function Home() {
         <a href="/playground" className="hover:text-gray-300">Playground</a>
       </div>
 
-      <div>所有的数据</div>
-      
-      <UrlsParse />
+      <div className="text-5xl text-sky-400">
+        Hello world
+      </div>
     </main>
   );
 }
