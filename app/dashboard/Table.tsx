@@ -39,7 +39,7 @@ const Table = (props: IProps) => {
                   // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   const value = (datum as any)[col.dataIndex]
                   return (
-                    <td key={j} className="whitespace-pre-wrap">
+                    <td key={j} className="whitespace-pre-wrap px-3 py-2">
                       {col.render ? col.render(value, datum) : value}
                     </td>
                   )

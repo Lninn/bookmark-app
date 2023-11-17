@@ -10,7 +10,7 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="bg-gray-400">
+    <div className="p-3">
       {children}
     </div>
   )
