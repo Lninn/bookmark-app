@@ -11,7 +11,9 @@ const columns: TableColumn<Bookmarks>[] = [
     width: 400,
     render: (_, record) => {
       return (
-        <a href={record.url} target="__blank" className="text-sky-500">{record.title}</a>
+        <div className="text-sky-500">
+          <a href={record.url} target="__blank" >{record.title}</a>
+        </div>
       )
     }
   },
@@ -30,17 +32,41 @@ const columns: TableColumn<Bookmarks>[] = [
     title: "index",
     dataIndex: "index",
     width: 100
+  },
+  {
+    title: "操作",
+    dataIndex: "action",
+    width: 100,
+    render() {
+      return (
+        <div>
+          <button>解析</button>
+        </div>
+      )
+    }
   }
 ]
-
-const nums = [1,2,3,4,5]
 
 const Viewer = () => {
   const [data, setData] = React.useState([])
   const [loading, setLoading] = React.useState(true)
+  const [page, setPage] = React.useState(1)
+  const [total, setTotal] = React.useState(0)
+
+  const pageItems = React.useMemo(() => {
+    const pages = Math.floor(total / 10)
+
+    const numbers = Array.from({
+      length: pages
+    }).map((_, idx) => {
+      return idx + 1
+    })
+
+    return numbers
+  }, [total])
 
   React.useEffect(() => {
-    queryData(1)
+    queryData(page)
   }, [])
 
   function queryData(page: number) {
@@ -49,12 +75,14 @@ const Viewer = () => {
       return res.json()
     }).then(res => {
       if (res.success) {
+        setTotal(res.total)
         setData(res.data)
       }
     }).finally(() => setLoading(false))
   }
 
   function handleClick(num: number) {
+    setPage(num)
     queryData(num)
   }
  
@@ -68,11 +96,12 @@ const Viewer = () => {
 
        <div className="flex gap-2 p-3">
         {
-          nums.map(num => {
+          pageItems.map(num => {
             return (
               <div
                key={num} 
-               className="cursor-pointer hover:text-gray-600" 
+               style={{ color: num === page ? "rgb(14, 165, 233)" : "" }}
+               className="cursor-pointer hover:text-gray-600 flex items-center justify-center text-lg w-8 h-8 bg-gray-500 rounded-md" 
                onClick={() => handleClick(num)}
               >
                 {num}

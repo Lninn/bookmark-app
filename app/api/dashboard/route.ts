@@ -31,7 +31,13 @@ export async function GET(request: NextRequest) {
 
   await db()
 
-  const result= await BookmarksModel.find({}).skip(page).limit(pageSize).exec()
+  const result= await BookmarksModel
+    .find({})
+    .skip(page)
+    .limit(pageSize)
+    .sort({ dateAdded: "ascending" }).exec()
+
+  const total = await BookmarksModel.countDocuments()
 
   const data = result.map(datum => {
     const {
@@ -53,5 +59,5 @@ export async function GET(request: NextRequest) {
     }
   })
 
-  return Response.json({ success: true, data })
+  return Response.json({ success: true, data, total })
 }
