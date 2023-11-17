@@ -1,11 +1,11 @@
 import db from "@/app/api/db"
-import Bookmark from "@/models/Bookmark"
+import BookmarksModel from "@/models/BookmarksModel"
 import mongoose from "mongoose"
 
 export async function GET() {
   await db()
 
-  const result = await Bookmark.find({})
+  const result = await BookmarksModel.find({})
 
   return Response.json({ data: result })
 }
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   const { data } = await request.json()
 
   try {
-    await Bookmark.validate(data)
+    await BookmarksModel.validate(data)
     console.log("验证成功")
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     }
   }
 
-  const instance = new Bookmark(data)
+  const instance = new BookmarksModel(data)
 
   const item = await instance.save()
 
