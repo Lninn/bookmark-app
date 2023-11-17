@@ -37,19 +37,21 @@ const nums = [1,2,3,4,5]
 
 const Viewer = () => {
   const [data, setData] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
 
   React.useEffect(() => {
     queryData(1)
   }, [])
 
   function queryData(page: number) {
+    setLoading(true)
     fetch(`/api/dashboard?page=${page}&pageSize=10`).then(res => {
       return res.json()
     }).then(res => {
       if (res.success) {
         setData(res.data)
       }
-    })
+    }).finally(() => setLoading(false))
   }
 
   function handleClick(num: number) {
@@ -58,7 +60,11 @@ const Viewer = () => {
  
   return (
     <div>
-       <Table data={data} columns={columns }/>
+       <Table
+        loading={loading}
+        data={data}
+        columns={columns }
+      />
 
        <div className="flex gap-2 p-3">
         {

@@ -10,12 +10,17 @@ export interface TableColumn<T> {
 }
 
 interface IProps {
+  loading: boolean
   columns: TableColumn<Bookmarks>[]
   data: Bookmarks[]
 }
 
 const Table = (props: IProps) => {
-  const { columns, data } = props
+  const { loading, columns, data } = props
+
+  if (loading) {
+    return <Skeleton />
+  }
 
   return (
     <div className="w-full">
@@ -68,6 +73,23 @@ const TableHeader = ({
         })}
       </tr>
     </thead>
+  )
+}
+
+function Skeleton() {
+  return (
+    <div className="flex flex-col gap-4 p-4" style={{ backgroundColor: "#141414" }}>
+      {Array.from({ length: 10 }).map((_, idx) => {
+        const w = (Math.random() * 100).toFixed(0)
+        return (
+          <div
+            key={idx}
+            style={{ width: w + "%", color: "#fff" }}
+            className="bg-gray-500 h-8 rounded opacity-25 skeleton"
+          />
+        )
+      })}
+    </div>
   )
 }
 
