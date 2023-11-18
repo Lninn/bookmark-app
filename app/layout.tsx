@@ -22,7 +22,11 @@ export default function RootLayout({
         <AppProvider>
           <Header />
           <MobileMenu />
-          {children}
+          <main>
+            <div className="max-w-screen-xl px-4 py-10 ml-auto mr-auto">
+              {children}
+            </div>
+          </main>
         </AppProvider>
       </body>
     </html>
