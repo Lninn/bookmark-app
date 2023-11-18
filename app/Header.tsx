@@ -1,9 +1,10 @@
 "use client"
 
 import React, { SVGProps } from "react"
-import MaterialSymbolsSunnyOutlineRounded from "./MaterialSymbolsSunnyOutlineRounded"
 import { useSide } from "./app-provider"
 import { MaterialSymbolsClose } from "@/icons"
+import { Select } from "@/components"
+import { PreferenceSwitcher } from "./PreferenceSwitcher"
 
 
 export default function Header() {
@@ -70,9 +71,9 @@ const Nav = () => {
         </nav>
 
         <div className="flex items-center pl-6 ml-6 border-l border-slate-200">
-          <button>
-            <MaterialSymbolsSunnyOutlineRounded />
-          </button>
+          <Select>
+            <PreferenceSwitcher />
+          </Select>
         </div>
       </div>
 
