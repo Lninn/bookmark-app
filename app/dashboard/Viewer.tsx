@@ -127,7 +127,7 @@ const Viewer = () => {
  
   return (
     <div>
-      <div>
+      <div className="flex items-center gap-2">
         <Button onClick={handleSyncInfo}>Sync info</Button>
       </div>
        

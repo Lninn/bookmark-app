@@ -1,0 +1,1 @@
+export { MaterialSymbolsArrowBackRounded } from "./MaterialSymbolsArrowBackRounded"

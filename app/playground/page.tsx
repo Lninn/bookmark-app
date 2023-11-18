@@ -3,11 +3,7 @@ import UrlsParse from "./UrlsParse";
 
 export default async function Dashboard() {
   return (
-    <div>
-      <div>
-        <a href="/">Index</a>
-      </div>
-
+    <div className="p-3">
       <Client />
 
       <UrlsParse />
