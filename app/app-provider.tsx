@@ -7,15 +7,15 @@ interface AppState {
     open: boolean
   },
 
-  openSide: () => void
+  toggleSide: (v: boolean) => void
 }
 
 const defualtAppValue: AppState = {
   side: {
-    open: true
+    open: false
   },
 
-  openSide: () => {
+  toggleSide: () => {
     //
   },
 }
@@ -23,11 +23,11 @@ const defualtAppValue: AppState = {
 export const AppContext = createContext(defualtAppValue)
 
 export function useSide() {
-  const { side, openSide } = React.useContext(AppContext)
+  const { side, toggleSide } = React.useContext(AppContext)
 
   return {
     open: side.open,
-    openSide,
+    toggleSide,
   }
 }
 
@@ -43,10 +43,8 @@ export default function AppProvider({ children }: {
     side: {
       open: state.side.open,
     },
-    openSide() {
-      if (!state.side.open) return
-
-      dispatch({ side: { open: false } })
+    toggleSide(s) {
+      dispatch({ side: { open: s } })
     },
   }
 

@@ -1,6 +1,9 @@
+"use client"
+
 import React, { SVGProps } from "react"
 import MaterialSymbolsSunnyOutlineRounded from "./MaterialSymbolsSunnyOutlineRounded"
 import Side from "./Side"
+import { useSide } from "./app-provider"
 
 const menus = [
   {
@@ -18,6 +21,7 @@ const menus = [
 ]
 
 const Nav = () => {
+  const { toggleSide } = useSide()
   return (
     <div className="py-4 px-8 border-b border-slate-900/10 flex">
       <div>
@@ -45,7 +49,9 @@ const Nav = () => {
       </div>
 
       <div className="ml-auto flex items-center">
-        <MaterialSymbolsMenu className="w-6 h-6" />
+        <button onClick={() => toggleSide(true)}>
+          <MaterialSymbolsMenu className="w-6 h-6" />
+        </button>
       </div>
 
       <Side />

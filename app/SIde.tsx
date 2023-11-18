@@ -2,9 +2,32 @@
 
 import React, { SVGProps } from "react"
 import ReactDOM from "react-dom"
+import { useSide } from "./app-provider"
 
 interface IProps {
   onClose: () => void
+}
+
+export default function Side() {
+  const { open, toggleSide } =  useSide()
+  const [isClient, setIsClient] = React.useState(false)
+
+  React.useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  const dom = open ? (
+    <div>
+      <SideMenu onClose={() => toggleSide(false)} />
+    </div>
+  ) : null
+
+  if (!isClient) return null
+
+  return ReactDOM.createPortal(
+    dom,
+    window.document.body,
+  )
 }
 
 function SideMenu({
@@ -24,22 +47,6 @@ function SideMenu({
     </div>
   )
 }
-
-export default function Side() {
-  const [open, setOpen] = React.useState(true)
-
-  const dom = open ? (
-    <div>
-      <SideMenu onClose={() => setOpen(false)} />
-    </div>
-  ) : null
-
-  return ReactDOM.createPortal(
-    dom,
-    document.body,
-  )
-}
-
 
 function MaterialSymbolsClose(props: SVGProps<SVGSVGElement>) {
   return (
