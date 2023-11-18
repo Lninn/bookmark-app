@@ -1,11 +1,10 @@
 import "./globals.css"
 
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
 import AppProvider from "./app-provider"
+import Header from "./Header"
+import MobileMenu from "./MobileMenu"
 
-
-const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Bookmarks app",
@@ -19,8 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-white text-slate-500 dark:text-slate-400`}>
+      <body className="bg-white text-slate-500 dark:text-slate-400">
         <AppProvider>
+          <Header />
+          <MobileMenu />
           {children}
         </AppProvider>
       </body>

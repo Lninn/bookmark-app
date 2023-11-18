@@ -3,6 +3,7 @@
 import React, { createContext } from "react"
 
 interface AppState {
+  pathname: string
   side: {
     open: boolean
   },
@@ -11,6 +12,7 @@ interface AppState {
 }
 
 const defualtAppValue: AppState = {
+  pathname: "/",
   side: {
     open: false
   },
@@ -23,10 +25,11 @@ const defualtAppValue: AppState = {
 export const AppContext = createContext(defualtAppValue)
 
 export function useSide() {
-  const { side, toggleSide } = React.useContext(AppContext)
+  const { pathname, side, toggleSide } = React.useContext(AppContext)
 
   return {
     open: side.open,
+    pathname,
     toggleSide,
   }
 }
@@ -39,7 +42,13 @@ export default function AppProvider({ children }: {
 
   const [state, dispatch] = React.useReducer(r, defualtAppValue)
 
+  React.useEffect(() => {
+    const { pathname } = location
+    dispatch({ pathname })
+  }, [])
+
   const value: AppState = {
+    pathname: state.pathname,
     side: {
       open: state.side.open,
     },

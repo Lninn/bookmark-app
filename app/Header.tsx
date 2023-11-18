@@ -2,8 +2,24 @@
 
 import React, { SVGProps } from "react"
 import MaterialSymbolsSunnyOutlineRounded from "./MaterialSymbolsSunnyOutlineRounded"
-import Sider from "./Sider"
 import { useSide } from "./app-provider"
+import { MaterialSymbolsClose } from "@/icons"
+
+
+export default function Header() {
+  return (
+    <header
+      className="sticky top-0"
+      style={{
+        backgroundColor: "hsla(0,0%,100%,.8)",
+        backdropFilter: "saturate(180%) blur(5px)",
+        boxShadow: "inset 0 -1px 0 0 var(--accents-2)"
+      }}
+    >
+      <Nav />
+    </header>
+  )
+}
 
 const menus = [
   {
@@ -21,7 +37,14 @@ const menus = [
 ]
 
 const Nav = () => {
-  const { toggleSide } = useSide()
+  const { pathname, open, toggleSide } = useSide()
+
+  function handleSideBtnClick() {
+    document.body.style.overflow = open ? "unset" : "hidden"
+
+    toggleSide(!open)
+  }
+
   return (
     <div className="py-4 px-8 border-b border-slate-900/10 flex">
       <div>
@@ -32,8 +55,14 @@ const Nav = () => {
         <nav className="text-sm leading-6 text-slate-700">
           <ul className="flex gap-8">
             {menus.map(menuItem => {
+               const isActive= menuItem.path === pathname
+
               return (
-                <li key={menuItem.title} className="hover:text-sky-500 text-slate-700 font-medium">
+                <li
+                  key={menuItem.title}
+                  className="hover:text-sky-500 text-slate-700 font-medium"
+                  style={{ color: isActive ? "rgb(14 165 233)" : "" }}
+                >
                   <a href={menuItem.path}>{menuItem.title}</a>
                 </li>
               )
@@ -49,12 +78,10 @@ const Nav = () => {
       </div>
 
       <div className="ml-auto flex items-center lg:hidden">
-        <button onClick={() => toggleSide(true)}>
-          <MaterialSymbolsMenu className="w-6 h-6" />
+        <button onClick={handleSideBtnClick}>
+          {open ? <MaterialSymbolsClose className="w-6 h-6" /> : <MaterialSymbolsMenu className="w-6 h-6" />}
         </button>
       </div>
-
-      <Sider />
     </div>
   )
 }
@@ -64,5 +91,3 @@ function MaterialSymbolsMenu(props: SVGProps<SVGSVGElement>) {
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M3 18v-2h18v2H3Zm0-5v-2h18v2H3Zm0-5V6h18v2H3Z"></path></svg>
   )
 }
-
-export default Nav
