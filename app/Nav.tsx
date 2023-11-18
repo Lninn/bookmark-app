@@ -2,7 +2,7 @@
 
 import React, { SVGProps } from "react"
 import MaterialSymbolsSunnyOutlineRounded from "./MaterialSymbolsSunnyOutlineRounded"
-import Side from "./Side"
+import Sider from "./Sider"
 import { useSide } from "./app-provider"
 
 const menus = [
@@ -48,13 +48,13 @@ const Nav = () => {
         </div>
       </div>
 
-      <div className="ml-auto flex items-center">
+      <div className="ml-auto flex items-center lg:hidden">
         <button onClick={() => toggleSide(true)}>
           <MaterialSymbolsMenu className="w-6 h-6" />
         </button>
       </div>
 
-      <Side />
+      <Sider />
     </div>
   )
 }
