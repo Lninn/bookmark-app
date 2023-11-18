@@ -9,9 +9,8 @@ import { MaterialSymbolsClose } from "@/icons"
 export default function Header() {
   return (
     <header
-      className="sticky top-0"
+      className="sticky top-0 bg-slate-50 dark:bg-slate-900/80"
       style={{
-        backgroundColor: "hsla(0,0%,100%,.8)",
         backdropFilter: "saturate(180%) blur(5px)",
         boxShadow: "inset 0 -1px 0 0 var(--accents-2)"
       }}
@@ -52,7 +51,7 @@ const Nav = () => {
       </div>
 
       <div className="hidden lg:flex items-center ml-auto">
-        <nav className="text-sm leading-6 text-slate-700">
+        <nav className="text-sm leading-6">
           <ul className="flex gap-8">
             {menus.map(menuItem => {
                const isActive= menuItem.path === pathname
@@ -60,7 +59,7 @@ const Nav = () => {
               return (
                 <li
                   key={menuItem.title}
-                  className="hover:text-sky-500 text-slate-700 font-medium"
+                  className="hover:text-sky-500 font-medium"
                   style={{ color: isActive ? "rgb(14 165 233)" : "" }}
                 >
                   <a href={menuItem.path}>{menuItem.title}</a>

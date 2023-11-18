@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white text-slate-500 dark:text-slate-400">
+      <body className="text-slate-500 dark:text-slate-300 bg-white dark:bg-slate-900">
         <AppProvider>
           <Header />
           <MobileMenu />
