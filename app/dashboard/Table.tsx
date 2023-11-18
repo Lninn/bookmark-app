@@ -1,6 +1,7 @@
 "use client"
 
 import { Bookmarks } from "@/models/BookmarksModel"
+import React from "react"
 
 export interface TableColumn<T> {
   title: string
@@ -77,15 +78,27 @@ const TableHeader = ({
 }
 
 function Skeleton() {
+  const items = React.useMemo(() => {
+    return Array.from({ length: 10 }).map(
+      () => {
+        const w = (Math.random() * 100).toFixed(0)
+        return {
+          style: { width: w + "%", color: "#fff" }
+        }
+      }
+    )
+  }, [])
+
   return (
     <div className="flex flex-col gap-4 p-4" style={{ backgroundColor: "#141414" }}>
-      {Array.from({ length: 10 }).map((_, idx) => {
-        const w = (Math.random() * 100).toFixed(0)
+      {items.map((datum, idx) => {
+        
         return (
           <div
             key={idx}
-            style={{ width: w + "%", color: "#fff" }}
+            style={datum.style}
             className="bg-gray-500 h-8 rounded opacity-25 skeleton"
+            suppressHydrationWarning={true}
           />
         )
       })}

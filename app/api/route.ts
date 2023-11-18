@@ -1,13 +1,20 @@
 import db from "@/app/api/db"
 import BookmarksModel from "@/models/BookmarksModel"
 import mongoose from "mongoose"
+import { parse } from "@/app/playground/UrlsParse"
+import { NextRequest } from "next/server"
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   await db()
 
-  const result = await BookmarksModel.find({})
+  const searchParams = req.nextUrl.searchParams
 
-  return Response.json({ data: result })
+  const urlString = searchParams.get("urls") || ""
+  const urls = urlString.split(",").filter(s => s)
+
+  const extendData = await parse(urls)
+
+  return Response.json({ data: { extendData } })
 }
 
 export async function POST(request: Request) {

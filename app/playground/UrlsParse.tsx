@@ -128,7 +128,7 @@ async function createItem(url: string) {
       }
     }
   } catch (err) {
-    console.error(err);
+    //
   }
 
   const iconUrl = await getIcon(url, originalDoc);
@@ -143,6 +143,10 @@ interface Item {
   tags: string;
   desc: string;
   icon: string;
+}
+
+export async function parse(urls: string[]) {
+  return await createData(urls)
 }
 
 export default async function UrlsParse() {

@@ -5,7 +5,7 @@ import React from "react";
 import File from "./File"
 
 const Client = () => {
-  const [open, setOpen] = React.useState(true)
+  const [open, setOpen] = React.useState(false)
 
   return (
     <div>

@@ -3,8 +3,21 @@
 import React from "react"
 import Table, { TableColumn } from "./Table"
 import { Bookmarks } from "@/models/BookmarksModel"
+import Button from "@/components/Button"
 
-const columns: TableColumn<Bookmarks>[] = [
+const columns: TableColumn<Bookmarks & { extendData: { icon?: string } }>[] = [
+  {
+    title: "Icon",
+    dataIndex: "icon",
+    width: 60,
+    render: (_, record) => {
+      const url = record?.extendData?.icon
+      if (!url) return null
+      return (
+        <img src={url} />
+      )
+    }
+  },
   {
     title: "标题",
     dataIndex: "title",
@@ -48,11 +61,13 @@ const columns: TableColumn<Bookmarks>[] = [
 ]
 
 const Viewer = () => {
-  const [data, setData] = React.useState([])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [data, setData] = React.useState<any[]>([])
   const [loading, setLoading] = React.useState(true)
   const [page, setPage] = React.useState(1)
   const [total, setTotal] = React.useState(0)
-
+  const [pageSize] = React.useState(15)
+  
   const pageItems = React.useMemo(() => {
     const pages = Math.floor(total / 10)
 
@@ -71,7 +86,7 @@ const Viewer = () => {
 
   function queryData(page: number) {
     setLoading(true)
-    fetch(`/api/dashboard?page=${page}&pageSize=10`).then(res => {
+    fetch(`/api/dashboard?page=${page}&pageSize=${pageSize}`).then(res => {
       return res.json()
     }).then(res => {
       if (res.success) {
@@ -85,18 +100,54 @@ const Viewer = () => {
     setPage(num)
     queryData(num)
   }
+
+  function handleSyncInfo() {
+    const url = new URL( location.origin + "/api");
+    const searchPS = new URLSearchParams(url.search);
+
+    searchPS.append("urls", data.map(d => d.url).toString())
+
+    setLoading(true)
+    fetch(`${url}/?${searchPS.toString()}`).then(res => res.json())
+      .then(data => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const extendData: any[] = data?.data?.extendData || []
+
+        setData(prev => {
+          const newData = prev.map(datum => {
+            const subData = extendData.find(d => d.url === datum.url)
+
+            return { ...datum, extendData: subData  }
+          })
+
+          return newData
+        })
+      }).finally(() => setLoading(false))
+  }
  
   return (
     <div>
+      <div>
+        <Button onClick={handleSyncInfo}>Sync info</Button>
+      </div>
+       
        <Table
         loading={loading}
         data={data}
-        columns={columns }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        columns={columns as any[]}
       />
 
        <div className="flex gap-2 p-3">
         {
           pageItems.map(num => {
+
+            if (page < 3) {
+              if (num > 5) return null
+            } else {
+              if (num < page - 2 || num > page + 2) return null 
+            }
+
             return (
               <div
                key={num} 
