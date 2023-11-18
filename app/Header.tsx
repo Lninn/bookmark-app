@@ -2,9 +2,11 @@
 
 import React, { SVGProps } from "react"
 import { useSide } from "./app-provider"
-import { MaterialSymbolsClose } from "@/icons"
-import { Select } from "@/components"
-import { PreferenceSwitcher } from "./PreferenceSwitcher"
+import {
+  MaterialSymbolsClose,
+  MaterialSymbolsLightDarkModeOutlineRounded,
+  MaterialSymbolsSunnyOutlineRounded
+} from "@/icons"
 
 
 export default function Header() {
@@ -37,13 +39,33 @@ const menus = [
 ]
 
 const Nav = () => {
-  const { pathname, open, toggleSide } = useSide()
+  const { mode, toggleMode, pathname, open, toggleSide } = useSide()
 
   function handleSideBtnClick() {
     document.body.style.overflow = open ? "unset" : "hidden"
 
     toggleSide(!open)
   }
+
+  function getPreferenceDom() {
+    if (mode === "dark") {
+      return (
+        <button onClick={() => toggleMode("light")}>
+          <MaterialSymbolsLightDarkModeOutlineRounded className="w-6 h-6" />
+        </button>
+      )
+    } else if (mode === "light") {
+      return (
+        <button onClick={() => toggleMode("dark")}>
+          <MaterialSymbolsSunnyOutlineRounded className="w-6 h-6" />
+        </button>
+      )
+    } else {
+      return null
+    }
+  }
+
+  const preferenceNode = getPreferenceDom()
 
   return (
     <div className="py-4 px-8 border-b border-slate-900/10 flex">
@@ -71,9 +93,7 @@ const Nav = () => {
         </nav>
 
         <div className="flex items-center pl-6 ml-6 border-l border-slate-200">
-          <Select>
-            <PreferenceSwitcher />
-          </Select>
+          {preferenceNode}
         </div>
       </div>
 
