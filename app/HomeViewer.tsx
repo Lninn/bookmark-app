@@ -1,14 +1,15 @@
-"use client"
+import React from "react"
+import dynamic from "next/dynamic"
 
-import Select from "@/components/Select"
+const ClientSelect = dynamic(() => import("./Select"), { ssr: false })
 
 export default function HomeViewer () {
   return (
     <div className="flex gap-3">
       <h2>Hello world</h2>
-      <Select>
-        <button>选一个 item</button>
-      </Select>
+      <ClientSelect>
+        <button className="bg-sky-300">选一个 item</button>
+      </ClientSelect>
     </div>
   )
 }
