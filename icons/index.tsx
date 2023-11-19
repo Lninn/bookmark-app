@@ -2,3 +2,4 @@ export { MaterialSymbolsSunnyOutlineRounded } from "./MaterialSymbolsSunnyOutlin
 export { MaterialSymbolsClose } from "./MaterialSymbolsClose"
 export { MaterialSymbolsArrowBackRounded } from "./MaterialSymbolsArrowBackRounded"
 export { MaterialSymbolsLightDarkModeOutlineRounded } from "./MaterialSymbolsLightDarkModeOutlineRounded"
+export { MaterialSymbolsDesktopMacOutlineRounded } from "./MaterialSymbolsDesktopMacOutlineRounded"

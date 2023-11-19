@@ -2,8 +2,8 @@
  
 import React, { createContext } from "react"
 
-interface AppState {
-  mode: "light" | "dark",
+export interface AppState {
+  mode: "light" | "dark" | "system",
   pathname: string
   side: {
     open: boolean

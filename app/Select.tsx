@@ -3,23 +3,22 @@
 import React from "react"
 import Portal from "../components/Portal";
 
-const list = [
-  {
-    label: "Light"
-  },
-  {
-    label: "Dark"
-  },
-  {
-    label: "System"
-  },
-]
+interface IProps {
+  children: React.ReactNode
+  options: {
+    key: string
+    label: React.ReactNode
+  }[]
+  value?: string
+  onChange?: (key: string) => void
+}
 
 export default function Select({
+  value,
+  options,
+  onChange,
   children
-}: {
-  children: React.ReactNode
-}) {
+}: IProps) {
   const child = React.Children.only(children) as React.ReactElement;
 
   const triggerRef = React.useRef<HTMLDivElement | null>(null)
@@ -41,7 +40,6 @@ export default function Select({
     const offsetContainerRect = offsetContainer?.getBoundingClientRect()
 
     function handleClick() {
-      console.log("handleClick");
       setOpen(prev => !prev)
     }
     targetElement?.addEventListener("click", handleClick)
@@ -54,7 +52,7 @@ export default function Select({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const _target = target as any
 
-      if (_target === targetElement) {
+      if (_target === targetElement || _target.closest(".trigger")) {
         return
       }
 
@@ -80,8 +78,12 @@ export default function Select({
     }
   }, [])
 
-  function handleItemClick() {
+  function handleItemClick(key: string) {
     setOpen(false)
+
+    if (onChange) {
+      onChange(key)
+    }
   }
 
   const { left, top } = state
@@ -95,7 +97,6 @@ export default function Select({
         <div
           ref={offsetContainerRef}
           className="offsetContainer fixed inset-0 pointer-events-none"
-          style={{ display: open ? "block": "none" }}
         >
           <div
             className="absolute w-36"
@@ -104,13 +105,19 @@ export default function Select({
               transformOrigin: "left top"
             }}
           >
-            <ul className="pointer-events-auto shadow-lg ring-1 ring-slate-900/10 font-semibold rounded py-1">
-              {list.map((item, idx) => {
+            <ul
+              className="pointer-events-auto shadow-lg ring-1 ring-slate-900/10 font-semibold rounded py-1 bg-white dark:bg-slate-800"
+              style={{ display: open ? "block": "none" }}
+            >
+              {options.map((item, idx) => {
+                const isActive = item.key === value
+
                 return (
                   <li
                     key={idx}
-                    className="py-1 px-2 hover:bg-slate-50 text-sm cursor-pointer"
-                    onClick={handleItemClick}
+                    style={isActive ? { color: "rgb(14 165 233)" } : {}}
+                    className="py-1 px-2 hover:bg-slate-50 text-sm cursor-pointer dark:hover:bg-slate-600/30"
+                    onClick={() => handleItemClick(item.key)}
                   >
                     {item.label}
                   </li>
@@ -141,6 +148,7 @@ const TriggerWrapper = React.forwardRef<HTMLElement, TriggerWrapperProps>(
 
     return React.cloneElement(children, {
       ref: mergedRef,
+      className: "trigger"
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any)
   },
@@ -161,18 +169,22 @@ export function getOffset (
   offsetRect?: Rect,
   targetRect?: Rect,
 ) {
-
   if (!offsetRect || !targetRect) {
     return {
       left: "0px",
       top: "0px",
     }
   }
-  
+
+  const left = targetRect.left - offsetRect.left
+
+  const cw = document.documentElement.clientWidth
+  const outLeft = left + 144 > cw ? left - 144 / 2 : left
+
   return {
-    left: `${Math.round(targetRect.left - offsetRect.left)}px`,
+    left: `${Math.round(outLeft)}px`,
     top: `${Math.round(
-      targetRect.top - offsetRect.top + targetRect.height + 16
+      targetRect.top - offsetRect.top + targetRect.height + 24
     )}px`,
   }
 }
