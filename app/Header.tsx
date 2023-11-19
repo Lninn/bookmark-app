@@ -139,7 +139,7 @@ const Nav = () => {
             {preferenceNode}
           </ClientSelect>
 
-          <button>
+          <button onClick={() => { window.open("https://github.com/Lninn/bookmark-app") }}>
             <MdiGithub className="w-6 h-6" />
           </button>
         </div>
