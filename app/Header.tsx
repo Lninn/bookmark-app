@@ -17,7 +17,7 @@ const options = [
     label: (
       <div className="flex gap-2 items-center">
         <MaterialSymbolsSunnyOutlineRounded className="w-6 h-6" />
-        Light
+        浅色
       </div>
     )
   },
@@ -26,7 +26,7 @@ const options = [
     label: (
       <div className="flex gap-2 items-center">
         <MaterialSymbolsLightDarkModeOutlineRounded className="w-6 h-6" />
-        Dark
+        深色
       </div>
     )
   },
@@ -35,7 +35,7 @@ const options = [
     label: (
       <div className="flex gap-2 items-center">
         <MaterialSymbolsDesktopMacOutlineRounded className="w-6 h-6" />
-        System
+        系统
       </div>
     )
   },
@@ -69,7 +69,7 @@ const menus = [
   {
     title: "Dashboard",
     path: "/dashboard"
-  }
+  },
 ]
 
 const Nav = () => {

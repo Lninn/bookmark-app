@@ -14,6 +14,10 @@ const menus = [
   {
     title: "Dashboard",
     path: "/dashboard"
+  },
+  {
+    title: "Github",
+    path: "https://github.com/Lninn/bookmark-app"
   }
 ]
 
