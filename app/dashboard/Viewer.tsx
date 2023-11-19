@@ -1,21 +1,18 @@
 "use client"
 
 import React from "react"
-import Table, { TableColumn } from "./Table"
-import { Bookmarks } from "@/models/BookmarksModel"
+import Table, { TableColumn } from "../../components/Table"
 import Button from "@/components/Button"
+import { Dialog } from "@/components"
+import { getFullUrl } from "../shared"
 
-const columns: TableColumn<Bookmarks & { extendData: { icon?: string } }>[] = [
+const originalCols: TableColumn<any>[] = [
   {
     title: "Icon",
     dataIndex: "icon",
     width: 60,
     render: (_, record) => {
-      const url = record?.extendData?.icon
-      if (!url) return null
-      return (
-        <img src={url} />
-      )
+      return (<img src={record.icon} />)
     }
   },
   {
@@ -46,18 +43,6 @@ const columns: TableColumn<Bookmarks & { extendData: { icon?: string } }>[] = [
     dataIndex: "index",
     width: 100
   },
-  {
-    title: "操作",
-    dataIndex: "action",
-    width: 100,
-    render() {
-      return (
-        <div>
-          <button>解析</button>
-        </div>
-      )
-    }
-  }
 ]
 
 const Viewer = () => {
@@ -67,6 +52,52 @@ const Viewer = () => {
   const [page, setPage] = React.useState(1)
   const [total, setTotal] = React.useState(0)
   const [pageSize] = React.useState(15)
+
+  const [dialogOpen, setDialogOpen] = React.useState(false)
+  const [activeRecord, setActiveRecord] = React.useState<any>()
+  const [iconUrl, setIconUrl] = React.useState("")
+
+  const columns = [
+    ...originalCols,
+    {
+      title: "操作",
+      dataIndex: "action",
+      width: 120,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      render(_: unknown, record: any) {
+        function onClick() {
+          setIconUrl("")
+          setActiveRecord(record)
+          setDialogOpen(true)
+        }
+        return (
+          <div>
+            <Button onClick={onClick}>Get Icon</Button>
+          </div>
+        )
+      }
+    }
+  ]
+
+  React.useEffect(() => {
+    if (!activeRecord) {
+      return
+    }
+
+    const params = { url: activeRecord.url }
+
+    // Append the query string to the URL
+    const fullUrl = getFullUrl("/api/url", params)
+
+    fetch(fullUrl).then(res => {
+      return res.json()
+    }).then(res => {
+      if (res.success) {
+        setIconUrl(res.data.icon)
+      }
+      console.log("debug ", res);
+    })
+  }, [activeRecord])
   
   const pageItems = React.useMemo(() => {
     const pages = Math.floor(total / 10)
@@ -128,7 +159,7 @@ const Viewer = () => {
   return (
     <div>
       <div className="flex items-center gap-2">
-        <Button onClick={handleSyncInfo}>Sync info</Button>
+      <Button onClick={handleSyncInfo}>Sync info</Button>
       </div>
        
        <Table
@@ -161,6 +192,11 @@ const Viewer = () => {
           })
         }
        </div>
+
+       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
+          {iconUrl}
+          {iconUrl ? <img src={iconUrl} className="w-6 h-6" /> : null}
+       </Dialog>
     </div>
   )
 }

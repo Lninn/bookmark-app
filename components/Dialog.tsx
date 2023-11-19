@@ -22,7 +22,6 @@ const Dialog = (props: IProps) => {
     setIsClient(true)
   }, [])
  
-
   const wrapDom = (
     <div>
       <div className="absolute top-0 right-0 bottom-0 left-0 bg-gray-500 opacity-50"></div>

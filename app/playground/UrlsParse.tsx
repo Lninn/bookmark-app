@@ -12,7 +12,7 @@ const descptionReg = /<meta name="description" content="(?<content>[^"]+)"/;
 const TitlteReg = /<title(.*)>(?<title>.*)<\/title>/;
 
 async function createData(urls: string[]) {
-  const data = [];
+  const data: any[] = [];
 
   let i = 0;
   while (i < urls.length) {
@@ -23,43 +23,6 @@ async function createData(urls: string[]) {
   }
 
   return data;
-}
-
-async function getIcon(url: string, doc: string) {
-  const obj = new URL(url);
-
-  const tryUrl = obj.origin + "/favicon.ico";
-  const isPass = await urlHasValid(tryUrl);
-
-  if (isPass) return tryUrl;
-
-  let matchedRes = doc.match(/<link rel="shortcut icon" href="(?<href>[^"]+)"/);
-  if (matchedRes) {
-    const href = matchedRes.groups?.href;
-
-    if (href) return href;
-  }
-
-  matchedRes = doc.match(/<link rel="icon" href="(?<href>[^"]+)"/);
-  if (matchedRes) {
-    const href = matchedRes.groups?.href;
-
-    if (href) return obj.origin + href;
-  }
-
-  return "";
-}
-
-async function urlHasValid(url: string) {
-  try {
-    const res = await fetch(url);
-
-    return res.status === 200;
-  } catch (err) {
-    err;
-  }
-
-  return false;
 }
 
 /**
@@ -90,13 +53,9 @@ async function createItem(url: string) {
     icon: "",
   };
 
-  let originalDoc = "";
-
   try {
     const res = await fetch(url);
     const doc = await res.text();
-
-    originalDoc = doc;
 
     const matched = doc.match(TitlteReg);
     if (matched) {
@@ -130,9 +89,6 @@ async function createItem(url: string) {
   } catch (err) {
     //
   }
-
-  const iconUrl = await getIcon(url, originalDoc);
-  info.icon = iconUrl;
 
   return info;
 }

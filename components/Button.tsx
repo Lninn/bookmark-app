@@ -7,7 +7,7 @@ interface IProps {
 
 const Button = ({ onClick, children }: IProps) => {
   return (
-    <button onClick={onClick} className="border px-3 py-2 hover:text-sky-300">
+    <button onClick={onClick} className="px-2 py-1 hover:text-sky-300">
       {children}
     </button>
   )

@@ -25,6 +25,7 @@
   ],
   "rules": {
     "semi": "off",
-    "quotes": "error"
+    "quotes": "error",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
