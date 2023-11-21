@@ -1,7 +1,6 @@
 import db from "@/app/api/db"
 import BookmarksModel from "@/models/BookmarksModel"
 import mongoose from "mongoose"
-import { parse } from "@/app/playground/UrlsParse"
 import { NextRequest } from "next/server"
 
 
@@ -13,9 +12,7 @@ export async function GET(req: NextRequest) {
   const urlString = searchParams.get("urls") || ""
   const urls = urlString.split(",").filter(s => s)
 
-  const extendData = await parse(urls)
-
-  return Response.json({ data: { extendData } })
+  return Response.json({ data: urls })
 }
 
 export async function POST(request: Request) {

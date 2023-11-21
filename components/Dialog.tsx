@@ -21,22 +21,50 @@ const Dialog = (props: IProps) => {
   React.useEffect(() => {
     setIsClient(true)
   }, [])
+
+  React.useEffect(() => {
+    function addBody() {
+      document.body.style.overflow = "hidden"
+      document.body.style.position = "relative"
+      document.body.style.overscrollBehavior = "contain"
+    }
+
+    function removeBody() {
+      document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.overscrollBehavior = ""
+    }
+    
+    if (open) {
+      addBody()
+    } else {
+      removeBody()
+    }
+  }, [open])
  
   const wrapDom = (
-    <div>
+    <div className="fixed inset-0">
       <div className="absolute top-0 right-0 bottom-0 left-0 bg-gray-500 opacity-50"></div>
-      <div className="absolute top-0 right-0 bottom-0 left-0 flex items-center justify-center">
-        <div className="bg-slate-400 p-3 w-96 rounded-lg">
-        <div className="flex justify-between border-b-2">
-          <div >全局搜索</div>
+      <div
+        style={{
+          position: "fixed",
+          top: "15%",
+          left: "50%",
+          transform: "translateX(-50%)",
+        }}
+        className="w-96 lg:w-2/4 rounded-lg bg-white transition-transform"
+      >
+        <div className="flex justify-between p-3 border-b">
+          <div >Search</div>
           <div
             className="cursor-pointer hover:text-gray-700 hover:opacity-20 w-6 h-6 flex items-center justify-center"
             onClick={onClose}
           >
-              X
-            </div>
+            X
+          </div>
         </div>
-        <div className="p-4">{children}</div>
+        <div className="p-3">
+          {children}
         </div>
       </div>
     </div>
