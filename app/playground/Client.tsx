@@ -54,6 +54,14 @@ const Client = () => {
             />
             <button>esc</button>
           </div>
+
+          <div>
+            <select>
+              <option>Web Developer</option>
+              <option>English</option>
+              <option>行政区划分</option>
+            </select>
+          </div>
         </form>
 
         <div className="h-36 flex items-center justify-center">
