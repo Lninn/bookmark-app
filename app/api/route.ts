@@ -4,6 +4,7 @@ import mongoose from "mongoose"
 import { parse } from "@/app/playground/UrlsParse"
 import { NextRequest } from "next/server"
 
+
 export async function GET(req: NextRequest) {
   await db()
 

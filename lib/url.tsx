@@ -9,6 +9,50 @@ export async function getIconUrl(pageUrl: string) {
   return iconUrl
 }
 
+const descptionReg = /<meta name="description" content="(?<content>[^"]+)/;
+export function getSiteDesc(doc: string) {
+  const matched = doc.match(descptionReg);
+
+  let desc = ""
+  
+  if (matched) {
+    const { groups } = matched;
+    desc = groups?.content || ""
+  }
+
+  return desc;
+}
+
+const TitlteReg = /<title(.*)>(?<title>.*)<\/title>/;
+export function getSiteTitle(doc: string) {
+  const matched = doc.match(TitlteReg);
+  if (matched) {
+    const { groups } = matched;
+    const title = groups ? groups.title : null;
+
+    if (title) {
+      return title
+    }
+  }
+
+  return ""
+}
+
+const KeyWordsReg = /<meta name="keywords" content="(?<content>[^"]+)"/;
+export function getSiteKeyword(doc: string) {
+  const keyWordsMatched = doc.match(KeyWordsReg);
+  if (keyWordsMatched) {
+    const { groups } = keyWordsMatched;
+    const tags = groups ? groups.content : null;
+
+    if (tags) {
+      return tags
+    }
+  }
+
+  return ""
+}
+
 async function getIconUrlFromDocuValit(url: string) {
   const obj = new URL(url);
   const tryUrl = obj.origin + "/favicon.ico";
@@ -52,7 +96,7 @@ function getIconUrlFromDoctxt(doc: string) {
   return ret
 }
 
-async function queryText(pageUrl: string) {
+export async function queryText(pageUrl: string) {
   let doc = ""
   
   try {

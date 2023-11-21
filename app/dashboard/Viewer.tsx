@@ -117,7 +117,7 @@ const Viewer = () => {
 
   function queryData(page: number) {
     setLoading(true)
-    fetch(`/api/dashboard?page=${page}&pageSize=${pageSize}`).then(res => {
+    fetch(`/api/url?page=${page}&pageSize=${pageSize}`).then(res => {
       return res.json()
     }).then(res => {
       if (res.success) {
