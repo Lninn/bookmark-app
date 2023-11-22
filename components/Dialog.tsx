@@ -75,7 +75,11 @@ const Dialog = (props: IProps) => {
   }
 
   return ReactDOM.createPortal(
-    open ? <div>{wrapDom}</div> : null,
+    open ? (
+      <div>
+        {wrapDom}
+      </div>
+    ) : null,
     window.document.body
   )
 }
