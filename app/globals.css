@@ -4,6 +4,10 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
+
+  --personal-p-color: #506385;
+  --personal-s-color: #f1f0e1;
+  --personal-t-color: #101015;
 }
 
 @media (prefers-color-scheme: dark) {

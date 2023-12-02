@@ -63,6 +63,10 @@ const menus = [
     path: "/"
   },
   {
+    title: "PersonalDashboard",
+    path: "/personalDashboard"
+  },
+  {
     title: "Playground",
     path: "/playground"
   },
