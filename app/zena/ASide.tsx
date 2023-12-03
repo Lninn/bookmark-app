@@ -2,14 +2,15 @@
 
 import React, { SVGProps, useState } from "react"
 import clsx from "clsx"
+import { useRouter } from "next/navigation"
 
-
-interface Menu {
+interface IMenuConfig {
   label: string
+  path?: string
   icon: React.ReactNode
 }
 
-const mainMenus = [
+const mainMenus: IMenuConfig[] = [
   {
     label: "Home",
     icon: <MaterialSymbolsLightHomeOutline />,
@@ -36,10 +37,11 @@ const mainMenus = [
   },
 ]
 
-const secondMenus = [
+const secondMenus: IMenuConfig[] = [
   {
     label: "Settings",
     icon: <MdiFileDocumentOutline />,
+    path: "/zena/settings"
   },
   {
     label: "Need help?",
@@ -67,12 +69,24 @@ export default function Aside() {
 }
 
 interface MenuListProps {
-  menus: Menu[]
+  menus: IMenuConfig[]
   activeKey?: string
   onChange?: (k: string) => void
 }
 
 function MenuList({ menus, activeKey, onChange, }: MenuListProps) {
+  const router = useRouter()
+
+  function handleClick(m: IMenuConfig) {
+    onChange && onChange(m.label)
+
+    if (m.path) {
+      router.push(m.path)
+    } else {
+      router.push("/zena")
+    }
+  }
+
   return (
     <div className="flex flex-col">
       {menus.map((m, i) => {
@@ -87,7 +101,7 @@ function MenuList({ menus, activeKey, onChange, }: MenuListProps) {
           <div
             key={i}
             className={fc}
-            onClick={() => onChange && onChange(m.label)}
+            onClick={() => handleClick(m)}
           >
             <div className="flex items-center justify-center">
               {getIcon(m.icon)}
