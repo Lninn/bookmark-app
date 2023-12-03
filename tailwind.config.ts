@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+import plugin from "tailwindcss/plugin"
 
 const config: Config = {
   content: [
@@ -15,7 +16,18 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addComponents }) {
+      addComponents({
+        ".z-bg": {
+          "backgroundColor": "#f8f7f3"
+        },
+        ".z-bg-ac": {
+          "backgroundColor": "#ede9e4"
+        }
+      })
+    })
+  ],
   darkMode: "class"
 }
 export default config

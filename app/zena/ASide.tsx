@@ -52,12 +52,12 @@ export default function Aside() {
 
   return (
     <aside className="flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto px-6 w-[--sidebar-width]">
-      <div className="sticky top-0 pt-6 pb-2 bg-[--personal-s-color]">
+      <div className="sticky top-0 pt-6 pb-2 z-bg">
         <div className="uppercase text-[28px] text-black font-serif">
           bookmark
         </div>
       </div>
-      <div className="h-[40px] flex-shrink-0"></div>
+      <div className="h-12 flex-shrink-0"></div>
       <MenuList activeKey={activeKey} onChange={setActiveKey} menus={mainMenus} />
       <div className="flex-grow min-h-[60px]"></div>
       <MenuList menus={secondMenus} />
@@ -74,12 +74,13 @@ interface MenuListProps {
 
 function MenuList({ menus, activeKey, onChange, }: MenuListProps) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col">
       {menus.map((m, i) => {
         const active = m.label === activeKey
         const fc = clsx(
-          "flex gap-4 hover:bg-gray-400/20 hover:cursor-pointer text-[--personal-t-color] px-2 py-3 rounded-xl font-normal",
-          { "bg-gray-400/20": active, "font-bold": active },
+          "flex gap-4 hover:z-bg-ac hover:cursor-pointer text-[--personal-t-color] px-[10px] py-3 rounded-xl",
+          { "z-bg-ac": active },
+          [active ? "font-bold" : "font-nomal"]
         )
 
         return (
