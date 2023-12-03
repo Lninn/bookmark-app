@@ -1,52 +1,10 @@
-import { CSSProperties, SVGProps } from "react"
+import React, { CSSProperties, SVGProps } from "react"
 import clsx from "clsx"
 
 interface Menu {
   label: string
   icon: React.ReactNode
 }
-
-const menus: Menu[] = [
-  {
-    label: "Home",
-    icon: <MaterialSymbolsLightHomeOutline />,
-  },
-  {
-    label: "Projects",
-    icon: <PhDotsNine />,
-  },
-  {
-    label: "Business spend",
-    icon: <LucideCreditCard />,
-  },
-  {
-    label: "Transactions",
-    icon: <IcRoundCompareArrows />,
-  },
-  {
-    label: "Payments",
-    icon: <MdiFileDocumentOutline />,
-  },
-  {
-    label: "Statements",
-    icon: <CarbonCurrencyDollar />,
-  },
-]
-
-const settingMenus: { label: string }[] = [
-  {
-    label: "My profile",
-  },
-  {
-    label: "Team",
-  },
-  {
-    label: "Bank",
-  },
-  {
-    label: "Notifications",
-  },
-]
 
 function FormItem({
   label,
@@ -114,26 +72,111 @@ const dataSource = Array.from({ length: 8 }).map(() => {
   }
 })
 
+const mainMenus = [
+  {
+    label: "Home",
+    icon: <MaterialSymbolsLightHomeOutline />,
+  },
+  {
+    label: "Projects Projects Projects Projects Projects Projects",
+    icon: <PhDotsNine />,
+  },
+  {
+    label: "Business spend",
+    icon: <LucideCreditCard />,
+  },
+  {
+    label: "Transactions",
+    icon: <IcRoundCompareArrows />,
+  },
+  {
+    label: "Payments",
+    icon: <MdiFileDocumentOutline />,
+  },
+  {
+    label: "Statements",
+    icon: <CarbonCurrencyDollar />,
+  },
+]
+
+const secondMenus = [
+  {
+    label: "Settings",
+    icon: <MdiFileDocumentOutline />,
+  },
+  {
+    label: "Need help?",
+    icon: <CarbonCurrencyDollar />,
+  },
+]
+
 export default function Zena() {
   return (
-    <div className="p-6 bg-gray-600 grid grid-cols-[max-content,1fr]">
-      <Menu />
+    <>
+      <aside className="flex flex-col fixed top-0 left-0 bottom-0 overflow-y-auto px-6 w-[--sidebar-width]">
+        <div className="sticky top-0 pt-6 pb-2 bg-[--personal-s-color]">
+          <div className="uppercase text-[28px] text-black font-serif">
+            bookmark
+          </div>
+        </div>
+        <div className="h-[40px]"></div>
+        <Menu menus={mainMenus} />
+        <Menu menus={mainMenus} />
+        <Menu menus={mainMenus} />
+        <Menu menus={mainMenus} />
+        <Menu menus={mainMenus} />
+        <div className="flex-grow"></div>
+        <Menu menus={secondMenus} />
+      </aside>
+      
+      <main className="pl-[--sidebar-width]">
+        <Header />
 
-      <div className="flex gap-6 p-10 bg-gray-200 rounded-2xl">
+        <div className="p-10 rounded-2xl bg-white">
+          <Settings />
+          
+          <div className="flex flex-col gap-6">
+            <Spending />
+            <Spending />
+          </div>
 
-        <div className="flex flex-col gap-6">
-          <Spending />
-          <Spending />
+          <div className="bg-white p-6 rounded-2xl flex-grow">
+            <div className="text-black">Activity</div>
+
+            <Table />
+          </div>
+        </div>
+      </main>
+    </>
+  )
+}
+
+function Header() {
+  return (
+    <header className="pt-6 pb-4">
+      <div className="flex items-center text-black">
+        <div className="p-2 bg-slate-300 inline-flex rounded-full">
+          <MaterialSymbolsArrowLeftAltRounded className="text-[32px]" />
         </div>
 
-        <div className="bg-white p-6 rounded-2xl flex-grow">
-          <div className="text-black">Activity</div>
+        <div className="flex-grow"></div>
 
-          <Table />
+        <div className="p-2 bg-slate-300 inline-flex rounded-full">
+          <MaterialSymbolsNotificationsOutline className="text-[32px]" />
+        </div>
+        <div className="w-8"></div>
+        <div className="w-12 h-12 bg-slate-300 rounded-full grid items-center justify-center text-[32px]">
+          S
+        </div>
+        <div className="w-2"></div>
+        <div className="flex items-center">
+          <div>Sarah</div>
+          <div><MaterialSymbolsKeyboardArrowDownRounded className="w-8 h-8"/></div>
+          <div className="w-8 h-8 bg-black"></div>
         </div>
 
       </div>
-    </div>
+    </header>
   )
 }
 
@@ -149,7 +192,7 @@ function DailyLimit() {
 
 function Spending() {
   return (
-    <div className="text-black bg-white p-8 rounded-2xl">
+    <div className="text-black bg-white p-8 rounded-2xl border">
       <div className="flex justify-between">
         <div>Spending</div>
         <div className="w-[100px]"></div>
@@ -199,6 +242,21 @@ function Table() {
     </div>
   )
 }
+
+const settingMenus: { label: string }[] = [
+  {
+    label: "My profile",
+  },
+  {
+    label: "Team",
+  },
+  {
+    label: "Bank",
+  },
+  {
+    label: "Notifications",
+  },
+]
 
 function Settings() {
   return (
@@ -281,16 +339,24 @@ function Button({
   )
 }
 
-function Menu() {
+function Menu({ menus }: { menus: Menu[] }) {
   return (
     <div className="flex flex-col gap-2">
       {menus.map((m, i) => {
+        function getIcon(dom) {
+          if (React.isValidElement(dom)) {
+            return React.cloneElement(dom, { className: "w-6 h-6" } as any)
+          } else {
+            return dom
+          }
+        }
+
         return (
-          <div key={i} className="flex gap-[6px] hover:text-sky-500 hover:cursor-pointer">
-            <div className="w-6 h-6 flex items-center justify-center">
-              {m.icon}
+          <div key={i} className="flex gap-4 hover:bg-amber-400/30 hover:cursor-pointer text-[--personal-t-color]">
+            <div className="flex items-center justify-center">
+              {getIcon(m.icon)}
             </div>
-            <span className="font-extralight">{m.label}</span>
+            <span className="text-[16px] font-normal text-black/80 whitespace-nowrap overflow-x-hidden text-ellipsis">{m.label}</span>
           </div>
         )
       })}
@@ -343,5 +409,23 @@ function MaterialSymbolsLightAddAPhotoOutline(props: SVGProps<SVGSVGElement>) {
 function MaterialSymbolsLightDeleteOutlineSharp(props: SVGProps<SVGSVGElement>) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M6 20V6H5V5h4v-.77h6V5h4v1h-1v14H6Zm1-1h10V6H7v13Zm2.808-2h1V8h-1v9Zm3.384 0h1V8h-1v9ZM7 6v13V6Z"></path></svg>
+  )
+}
+
+function MaterialSymbolsArrowLeftAltRounded(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="m7.85 13l2.85 2.85q.3.3.288.7t-.288.7q-.3.3-.712.313t-.713-.288L4.7 12.7q-.3-.3-.3-.7t.3-.7l4.575-4.575q.3-.3.713-.287t.712.312q.275.3.288.7t-.288.7L7.85 11H19q.425 0 .713.288T20 12q0 .425-.288.713T19 13H7.85Z"></path></svg>
+  )
+}
+
+function MaterialSymbolsNotificationsOutline(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M4 19v-2h2v-7q0-2.075 1.25-3.687T10.5 4.2v-.7q0-.625.438-1.062T12 2q.625 0 1.063.438T13.5 3.5v.7q2 .5 3.25 2.113T18 10v7h2v2H4Zm8-7.5ZM12 22q-.825 0-1.412-.587T10 20h4q0 .825-.587 1.413T12 22Zm-4-5h8v-7q0-1.65-1.175-2.825T12 6q-1.65 0-2.825 1.175T8 10v7Z"></path></svg>
+  )
+}
+
+function MaterialSymbolsKeyboardArrowDownRounded(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M12 14.975q-.2 0-.375-.062T11.3 14.7l-4.6-4.6q-.275-.275-.275-.7t.275-.7q.275-.275.7-.275t.7.275l3.9 3.9l3.9-3.9q.275-.275.7-.275t.7.275q.275.275.275.7t-.275.7l-4.6 4.6q-.15.15-.325.213t-.375.062Z"></path></svg>
   )
 }
