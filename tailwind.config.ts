@@ -24,7 +24,7 @@ const config: Config = {
         },
         ".z-bg-ac": {
           "backgroundColor": "#ede9e4"
-        }
+        },
       })
     })
   ],

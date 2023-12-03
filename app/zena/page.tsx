@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react"
+import Button from "./Button"
 
 interface IColumn {
   title: string
@@ -43,7 +44,7 @@ function num(n) {
   )
 }
 
-const dataSource = Array.from({ length: 8 }).map(() => {
+const dataSource = Array.from({ length: 10 }).map(() => {
   return {
     transaction: "House Painting",
     amount: 23654,
@@ -53,7 +54,7 @@ const dataSource = Array.from({ length: 8 }).map(() => {
 
 export default function Zena() {
   return (
-    <div className="grid grid-cols-[max-content,1fr] gap-6">
+    <div className="grid grid-cols-[max-content,1fr] gap-6 max-w-screen-lg">
       <div className="flex flex-col gap-6">
         <Spending />
         <Spending />
@@ -63,6 +64,10 @@ export default function Zena() {
         <div className="text-black">Activity</div>
 
         <Table />
+
+        <div className="mt-6">
+          <Button className="w-full z-bg-ac text-center">See all transaction</Button>
+        </div>
       </div>
     </div>
   )
@@ -102,10 +107,16 @@ function Table() {
     <div>
       <table className="w-full">
         <thead>
-          <tr className="border-b">
+          <tr className="border-b-2 border-neutral-600">
             {columns.map((c, i) => {
               return (
-                <th key={i} style={{ textAlign: c.align, width: c.width }}>{c.title}</th>
+                <th
+                  key={i}
+                  style={{ textAlign: c.align, width: c.width }}
+                  className="z-cell"
+                >
+                  {c.title}
+                </th>
               )
             })}
           </tr>
@@ -113,13 +124,13 @@ function Table() {
         <tbody>
           {dataSource.map((d, i) => {
             return (
-              <tr key={i}>
+              <tr key={i} className="border-b border-neutral-200">
                 {columns.map((c, j)=> {
                   const cellValue = d[c.dataIndex]
                   const dom = c.render ? c.render(cellValue) :  cellValue
 
                   return (
-                    <td key={j}>{dom}</td>
+                    <td key={j} className="z-cell">{dom}</td>
                   )
                 })}
               </tr>

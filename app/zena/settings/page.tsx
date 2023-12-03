@@ -1,5 +1,5 @@
-import clsx from "clsx"
 import { SVGProps } from "react"
+import Button from "../Button"
 
 
 const settingMenus: { label: string }[] = [
@@ -34,7 +34,7 @@ function FormItem({
 
 export default function Settings() {
   return (
-    <div className="bg-white p-6 rounded-2xl">
+    <div className="max-w-screen-lg">
       <div className="text-3xl text-black">Settings</div>
 
       <div className="flex gap-3">
@@ -90,26 +90,6 @@ export default function Settings() {
       </Button>
 
     </div>
-  )
-}
-
-function Button({
-  icon,
-  children,
-  className,
-}: {
-  icon?: React.ReactNode
-  children: React.ReactNode
-  className?: string
-}) {
-  return (
-    <button className={clsx(
-      "flex items-center gap-2 bg-amber-300/30 px-4 py-2 rounded-xl hover:bg-gray-300/50",
-      className
-    )}>
-      {icon}
-      <span className="text-xl">{children}</span>
-    </button>
   )
 }
 
