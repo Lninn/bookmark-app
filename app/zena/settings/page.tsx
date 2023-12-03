@@ -1,5 +1,6 @@
 import { SVGProps } from "react"
-import Button from "../Button"
+import Button from "../components/Button"
+import FormItem from "../components/FormItem"
 
 
 const settingMenus: { label: string }[] = [
@@ -16,21 +17,6 @@ const settingMenus: { label: string }[] = [
     label: "Notifications",
   },
 ]
-
-function FormItem({
-  label,
-  defaultValue,
-}: {
-  label: string
-  defaultValue: string
-}) {
-  return (
-    <div className="border inline-flex flex-col gap-1 px-4 py-2 rounded-lg">
-      <label>{label}</label>
-      <input className="outline-none" type="text" defaultValue={defaultValue} />
-    </div>
-  )
-}
 
 export default function Settings() {
   return (

@@ -1,4 +1,3 @@
-
 import AppProvider from "./app-provider"
 import Header from "./Header"
 import MobileMenu from "./MobileMenu"

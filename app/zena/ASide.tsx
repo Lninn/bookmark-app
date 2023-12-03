@@ -16,8 +16,9 @@ const mainMenus: IMenuConfig[] = [
     icon: <MaterialSymbolsLightHomeOutline />,
   },
   {
-    label: "Projects Projects Projects Projects Projects Projects",
+    label: "New purchase on your card",
     icon: <PhDotsNine />,
+    path: "/zena/new-purchase",
   },
   {
     label: "Business spend",

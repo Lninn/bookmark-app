@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react"
-import Button from "./Button"
+import Button from "./components/Button"
 
 interface IColumn {
   title: string
