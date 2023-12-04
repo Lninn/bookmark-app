@@ -23,6 +23,7 @@ const mainMenus: IMenuConfig[] = [
   {
     label: "Business spend",
     icon: <LucideCreditCard />,
+    path: "/zena/recruiting"
   },
   {
     label: "Transactions",
