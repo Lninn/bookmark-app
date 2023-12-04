@@ -1,41 +1,22 @@
 import Link from "next/link"
 import { SVGProps } from "react"
 
+// ref https://dribbble.com/shots/14100356-ToDo-App-UI
+
 interface Item {
   label: string
+  fill: string
 }
 
 const list: Item[] = [
   {
-    label: "Create a new template"
+    label: "Create a new template",
+    fill: "#444655",
   },
   {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
-  {
-    label: "Create a new template"
-  },
+    label: "Check emails",
+    fill: "#E31B4F",
+  }
 ]
 
 const cateList = [
@@ -109,7 +90,7 @@ export default function Todo() {
         <div className="w-full flex flex-col gap-1">
           {list.map((d, i) => (
             <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-lg" key={i}>
-              <div className="border-2 border-[#ff764d] w-6 h-6 rounded-full"></div>
+              <div className="border-2 border-[#ff764d] w-6 h-6 rounded-full" style={{ borderColor: d.fill }}></div>
               <div className="text-lg text-[#1b274b]">{d.label}</div>
             </div>
           ))}

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { SVGProps } from "react"
+import React, { SVGProps } from "react"
 
 export default function Create() {
   return (
@@ -9,13 +9,13 @@ export default function Create() {
       </div>
 
       <div className="pt-36 px-8">
-        <div>
+        <form>
           <input
             type="text"
             placeholder="Enter new task"
             className="w-full text-xl"
           />
-        </div>
+        </form>
       </div>
 
       <div className="flex w-full justify-center mt-60">
