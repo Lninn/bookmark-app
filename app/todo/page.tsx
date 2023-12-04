@@ -41,30 +41,35 @@ const list: Item[] = [
 const cateList = [
   {
     count: 40,
-    title: "Business"
+    title: "Business",
+    fill: "#ff764d",
   },
   {
     count: 40,
-    title: "Business"
+    title: "Business",
+    fill: "#ffb57c",
   },
   {
     count: 40,
-    title: "Business"
+    title: "Business",
+    fill: "#ffb57c",
   },
   {
     count: 40,
-    title: "Business"
+    title: "Business",
+    fill: "#ffb57c",
   },
   {
     count: 40,
-    title: "Business"
+    title: "Business",
+    fill: "#7efd94",
   },
 ]
 
 export default function Todo() {
   return (
     <div className="bg-[#f9fbfe] h-screen">
-      <div className="flex sticky top-0 bg-[#f9fbfe] p-8">
+      <div className="flex sticky top-0 bg-[#f9fbfe] p-8 z-10">
         <MajesticonsMenuAltLine className="w-6 h-6" />
         <div className="flex-grow"></div>
         <div className="flex">
@@ -78,23 +83,28 @@ export default function Todo() {
         <div className="text-3xl">Whats upm Joy!</div>
       </div>
 
-      <div className="px-8">
-        <div>categories</div>
+      <div className="px-8 mt-8">
+        <div className="text-gray-400 uppercase text-sm">categories</div>
         <div className="overflow-scroll w-full flex items-center gap-2 mt-4">
           {cateList.map((c, i) => (
-            <div key={i} className="bg-white p-4 flex flex-col w-52 flex-shrink-0">
+            <div key={i} className="bg-white p-4 flex flex-col w-48 flex-shrink-0">
               <div>{c.count} tasks</div>
               <div className="h-1"></div>
               <div className="font-medium text-black text-lg">{c.title}</div>
               <div className="h-2"></div>
-              <div className="h-1 bg-red-400"></div>
+
+              <div className="relative h-1">
+                <div className="w-full h-full bg-gray-400 absolute"></div>
+                <div className="absolute w-2/3 h-full bg-red-300" style={{ background: c.fill }}></div>
+              </div>
+
             </div>
           ))}
         </div>
       </div>
       <div className="h-4"></div>
       <div className="px-8">
-        <div className="text-gray-400 uppercase">todays tasks</div>
+        <div className="text-gray-400 uppercase text-sm">todays tasks</div>
         <div className="h-1"></div>
         <div className="w-full flex flex-col gap-1">
           {list.map((d, i) => (
