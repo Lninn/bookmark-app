@@ -16,7 +16,39 @@ const list: Item[] = [
   {
     label: "Check emails",
     fill: "#E31B4F",
-  }
+  },
+  {
+    label: "Create a new template",
+    fill: "#444655",
+  },
+  {
+    label: "Check emails",
+    fill: "#E31B4F",
+  },
+  {
+    label: "Create a new template",
+    fill: "#444655",
+  },
+  {
+    label: "Check emails",
+    fill: "#E31B4F",
+  },
+  {
+    label: "Create a new template",
+    fill: "#444655",
+  },
+  {
+    label: "Check emails",
+    fill: "#E31B4F",
+  },
+  {
+    label: "Create a new template",
+    fill: "#444655",
+  },
+  {
+    label: "Check emails",
+    fill: "#E31B4F",
+  },
 ]
 
 const cateList = [
@@ -49,31 +81,30 @@ const cateList = [
 
 export default function Todo() {
   return (
-    <div className="bg-[#f9fbfe] h-screen">
-      <div className="flex sticky top-0 bg-[#f9fbfe] p-8 z-10">
-        <MajesticonsMenuAltLine className="w-6 h-6" />
+    <div className="bg-[--t-bg] min-h-screen">
+      <div className="flex sticky top-0 bg-[--t-bg] p-8 pb-6 z-10">
+        <MajesticonsMenuAltLine className="w-6 h-6 text-[#94b1fc]" />
         <div className="flex-grow"></div>
         <div className="flex">
-          <IconamoonSearchLight className="w-6 h-6" />
+          <IconamoonSearchLight className="w-6 h-6 text-[#94b1fc]" />
           <div className="w-6"></div>
-          <MdiBellOutline className="w-6 h-6" />
+          <MdiBellOutline className="w-6 h-6 text-[#94b1fc]" />
         </div>
       </div>
 
-      <div className="text-black px-8">
-        <div className="text-3xl">Whats upm Joy!</div>
+      <div className="text-white px-8">
+        <div className="text-4xl">Whats upm Joy!</div>
       </div>
 
       <div className="px-8 mt-8">
-        <div className="text-gray-400 uppercase text-sm">categories</div>
-        <div className="overflow-scroll w-full flex items-center gap-2 mt-4">
+        <div className="text-[#97b4ff] uppercase text-[12px] tracking-widest font-normal">categories</div>
+        <div className="overflow-x-scroll w-full flex items-center gap-2 mt-4">
           {cateList.map((c, i) => (
-            <div key={i} className="bg-white p-4 flex flex-col w-48 flex-shrink-0">
+            <div key={i} className="bg-[#061955] p-4 flex flex-col w-48 flex-shrink-0 rounded-2xl">
               <div>{c.count} tasks</div>
-              <div className="h-1"></div>
-              <div className="font-medium text-black text-lg">{c.title}</div>
-              <div className="h-2"></div>
-
+              <div className="h-4"></div>
+              <div className="font-medium leading-[1] text-white text-lg tracking-wider">{c.title}</div>
+              <div className="h-8"></div>
               <div className="relative h-1">
                 <div className="w-full h-full bg-gray-400 absolute"></div>
                 <div className="absolute w-2/3 h-full bg-red-300" style={{ background: c.fill }}></div>
@@ -83,21 +114,21 @@ export default function Todo() {
           ))}
         </div>
       </div>
-      <div className="h-4"></div>
+      <div className="h-8"></div>
       <div className="px-8">
-        <div className="text-gray-400 uppercase text-sm">todays tasks</div>
-        <div className="h-1"></div>
-        <div className="w-full flex flex-col gap-1">
+        <div className="text-[#97b4ff] uppercase text-[12px] tracking-widest font-normal">today&lsquo;s tasks</div>
+        <div className="h-4"></div>
+        <div className="w-full flex flex-col gap-2">
           {list.map((d, i) => (
-            <div className="flex items-center gap-3 bg-white px-4 py-3 rounded-lg" key={i}>
+            <div className="flex items-center gap-3 bg-[#061955] px-4 py-3 rounded-lg" key={i}>
               <div className="border-2 border-[#ff764d] w-6 h-6 rounded-full" style={{ borderColor: d.fill }}></div>
-              <div className="text-lg text-[#1b274b]">{d.label}</div>
+              <div className="text-lg text-white">{d.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="bg-[#6b8cff] fixed right-12 bottom-12 rounded-full p-2">
+      <div className="bg-[#eb06ff] fixed right-12 bottom-12 rounded-full p-2">
         <Link href='/todo/create'><MaterialSymbolsAdd className="text-3xl text-white" /></Link>
       </div>
     </div>

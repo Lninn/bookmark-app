@@ -10,6 +10,8 @@
   --personal-t-color: #101015;
 
   --sidebar-width: 270px;
+
+  --t-bg: #3451a1;
 }
 
 @media (prefers-color-scheme: dark) {
