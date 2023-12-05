@@ -1,55 +1,9 @@
 import Link from "next/link"
 import { SVGProps } from "react"
+import List from "./List"
 
 // ref https://dribbble.com/shots/14100356-ToDo-App-UI
 
-interface Item {
-  label: string
-  fill: string
-}
-
-const list: Item[] = [
-  {
-    label: "Create a new template",
-    fill: "#444655",
-  },
-  {
-    label: "Check emails",
-    fill: "#E31B4F",
-  },
-  {
-    label: "Create a new template",
-    fill: "#444655",
-  },
-  {
-    label: "Check emails",
-    fill: "#E31B4F",
-  },
-  {
-    label: "Create a new template",
-    fill: "#444655",
-  },
-  {
-    label: "Check emails",
-    fill: "#E31B4F",
-  },
-  {
-    label: "Create a new template",
-    fill: "#444655",
-  },
-  {
-    label: "Check emails",
-    fill: "#E31B4F",
-  },
-  {
-    label: "Create a new template",
-    fill: "#444655",
-  },
-  {
-    label: "Check emails",
-    fill: "#E31B4F",
-  },
-]
 
 const cateList = [
   {
@@ -118,14 +72,7 @@ export default function Todo() {
       <div className="px-8">
         <div className="text-[#97b4ff] uppercase text-[12px] tracking-widest font-normal">today&lsquo;s tasks</div>
         <div className="h-4"></div>
-        <div className="w-full flex flex-col gap-2">
-          {list.map((d, i) => (
-            <div className="flex items-center gap-3 bg-[#061955] px-4 py-3 rounded-lg" key={i}>
-              <div className="border-2 border-[#ff764d] w-6 h-6 rounded-full" style={{ borderColor: d.fill }}></div>
-              <div className="text-lg text-white">{d.label}</div>
-            </div>
-          ))}
-        </div>
+        <List />
       </div>
 
       <div className="bg-[#eb06ff] fixed right-12 bottom-12 rounded-full p-2">
