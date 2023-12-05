@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { SVGProps } from "react"
 import List from "./List"
+import ASide from "./ASide"
 
 // ref https://dribbble.com/shots/14100356-ToDo-App-UI
 
@@ -35,7 +36,16 @@ const cateList = [
 
 export default function Todo() {
   return (
-    <div className="bg-[--t-bg] min-h-screen">
+    <div className="overflow-x-hidden max-w-max">
+      <ASide />
+      <MainPage />
+    </div>
+  )
+}
+
+function MainPage() {
+  return (
+    <div className="bg-[--t-bg] min-h-screen z-30 relative translate-x-3/4 scale-y-90">
       <div className="flex sticky top-0 bg-[--t-bg] p-8 pb-6 z-10">
         <MajesticonsMenuAltLine className="w-6 h-6 text-[#94b1fc]" />
         <div className="flex-grow"></div>
