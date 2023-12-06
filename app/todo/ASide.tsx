@@ -1,5 +1,3 @@
-"use client"
-
 import { SVGProps } from "react"
 
 const menus = [
@@ -8,11 +6,15 @@ const menus = [
   { label: "Analysis" },
 ]
 
-export default function ASide() {
-  return (
-    <aside className="fixed inset-0 bg-[#041955] text-white z-20">
+interface IProps {
+  onClose: () => void
+}
 
-      <div className="flex flex-col h-full pt-24 pl-12 pb-24">
+export default function ASide({ onClose }: IProps) {
+  return (
+    <aside className="fixed inset-0 bg-[#041955] text-white w-screen h-screen">
+
+      <div className="flex flex-col h-full mt-24 pl-12 pb-24">
 
         <div className="border rounded-full w-16 h-16 flex items-center justify-center">
           A
@@ -50,7 +52,10 @@ export default function ASide() {
 
       </div>
 
-      <div className="absolute z-40 top-12 right-32 border flex items-center justify-center p-2 rounded-full">
+      <div
+        className="absolute z-40 top-12 right-32 border flex items-center justify-center p-2 rounded-full"
+        onClick={onClose}
+      >
         <MaterialSymbolsLightArrowBackIosNew className="tex-[14px]" />
       </div>
     </aside>

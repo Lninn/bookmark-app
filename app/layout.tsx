@@ -15,7 +15,7 @@ export default function RootLayout(props: RootLayoutProps) {
   const { children } = props
   return (
     <html lang="en">
-      <body className="text-slate-500 dark:text-slate-300 dark:bg-slate-900 z-bg">
+      <body className="overflow-hidden h-screen">
         {children}
       </body>
     </html>
