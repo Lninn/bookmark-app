@@ -42,9 +42,10 @@ export default function App({
   onOpen,
 }: IProps) {
   const rc = clsx(
-    "bg-[--t-bg] min-h-screen z-30 overflow-y-hidden h-full relative transition-transform duration-100",
+    "bg-[--t-bg] min-h-screen z-30 h-full relative transition-transform duration-100",
     {
-      "scale-y-90 translate-x-3/4": open,
+      "scale-y-90 translate-x-3/4 overflow-y-hidden": open,
+      "overflow-y-scroll": !open,
     }
   )
 
