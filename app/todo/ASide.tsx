@@ -12,7 +12,7 @@ interface IProps {
 
 export default function ASide({ onClose }: IProps) {
   return (
-    <aside className="fixed inset-0 bg-[#041955] text-white w-screen h-screen">
+    <aside className="fixed inset-0 bg-[#041955] text-white w-screen h-screen overflow-hidden">
 
       <div className="flex flex-col h-full mt-24 pl-12 pb-24">
 
