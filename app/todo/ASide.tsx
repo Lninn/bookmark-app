@@ -13,8 +13,8 @@ interface IProps {
 export default function ASide({ onClose }: IProps) {
   return (
     <aside className="fixed inset-0 bg-[#041955] text-white w-screen h-screen overflow-hidden">
-
-      <div className="flex flex-col h-full mt-24 pl-12 pb-24">
+      <div className="flex flex-col pl-12 h-full">
+        <div className="h-24"></div>
 
         <div className="border rounded-full w-20 h-20 flex items-center justify-center text-[36px]">
           A
@@ -43,13 +43,12 @@ export default function ASide({ onClose }: IProps) {
           })}
         </div>
 
-        <div className="flex-grow"></div>
-
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-auto">
           <div className="text-gray-400 text-[14px]">Good</div>
           <div className="text-[24px]">Consistancy</div>
         </div>
-
+        
+        <div className="h-12"></div>
       </div>
 
       <div

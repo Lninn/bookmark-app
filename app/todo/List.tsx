@@ -9,67 +9,23 @@ interface Item {
   checked: boolean
 }
 
-const _list: Item[] = [
-  {
-    text: "Create a new template",
-    fill: "#444655",
-    checked: false,
-  },
-  {
-    text: "Check emails",
-    fill: "#E31B4F",
-     checked: false,
-  },
-  {
-    text: "Create a new template",
-    fill: "#444655",
-     checked: false,
-  },
-  {
-    text: "Check emails",
-    fill: "#E31B4F",
-     checked: false,
-  },
-  {
-    text: "Create a new template",
-    fill: "#444655",
-     checked: false,
-  },
-  {
-    text: "Check emails",
-    fill: "#E31B4F",
-     checked: false,
-  },
-  {
-    text: "Create a new template",
-    fill: "#444655",
-     checked: false,
-  },
-  {
-    text: "Check emails",
-    fill: "#E31B4F",
-     checked: false,
-  },
-  {
-    text: "Create a new template",
-    fill: "#444655",
-     checked: false,
-  },
-  {
-    text: "Check emails",
-    fill: "#E31B4F",
-     checked: false,
-  },
-]
-
 export default function List() {
-  const [list, setList] = useState(_list)
+  const [list, setList] = useState<Item[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch("/api/todo").then(res => res.json()).then(res => {
-      console.log("debug ", res)
-      setList(res.data)
-    })
+    setLoading(true)
+
+    setTimeout(() => {
+
+      fetch("/api/todo").then(res => res.json()).then(res => {
+        // console.log("debug ", res)
+        setList(res.data)
+        
+      }).finally(() => setLoading(false))
+      
+    }, 3000)
+    
   }, [])
 
   function onClick(item: Item) {
@@ -77,6 +33,10 @@ export default function List() {
       ...d,
       checked: d.text === item.text ? !d.checked : d.checked
     })))
+  }
+
+  if (loading) {
+    return <Skeleton />
   }
 
   return (
@@ -113,3 +73,19 @@ function IcSharpCheck(props: SVGProps<SVGSVGElement>) {
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19L21 7l-1.41-1.41L9 16.17z"></path></svg>
   )
 }
+
+const Skeleton = () => {
+  return (
+    <div className="animate-pulse space-y-4">
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-4 rounded"></div>
+    </div>
+  );
+};
