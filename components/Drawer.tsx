@@ -2,7 +2,7 @@
 
 import React from "react"
 import ReactDOM from "react-dom"
-import { useSide } from "@/app/app-provider"
+import { useSide } from "@/components/app-provider"
 import { MaterialSymbolsClose } from "@/icons"
 
 interface IProps {

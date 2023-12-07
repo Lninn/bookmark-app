@@ -4,7 +4,7 @@ import React from "react"
 import Table, { TableColumn } from "../../components/Table"
 import Button from "@/components/Button"
 import { Dialog } from "@/components"
-import { getFullUrl } from "../shared"
+import { getFullUrl } from "../../components/shared"
 
 const originalCols: TableColumn<any>[] = [
   {

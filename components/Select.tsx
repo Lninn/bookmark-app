@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import Portal from "../components/Portal";
+import Portal from "./Portal";
 
 interface IProps {
   children: React.ReactNode
