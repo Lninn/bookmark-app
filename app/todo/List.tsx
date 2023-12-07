@@ -1,62 +1,62 @@
 "use client"
 
 import clsx from "clsx"
-import { SVGProps, useState } from "react"
+import { SVGProps, useEffect, useState } from "react"
 
 interface Item {
-  label: string
+  text: string
   fill: string
   checked: boolean
 }
 
 const _list: Item[] = [
   {
-    label: "Create a new template",
+    text: "Create a new template",
     fill: "#444655",
     checked: false,
   },
   {
-    label: "Check emails",
+    text: "Check emails",
     fill: "#E31B4F",
      checked: false,
   },
   {
-    label: "Create a new template",
+    text: "Create a new template",
     fill: "#444655",
      checked: false,
   },
   {
-    label: "Check emails",
+    text: "Check emails",
     fill: "#E31B4F",
      checked: false,
   },
   {
-    label: "Create a new template",
+    text: "Create a new template",
     fill: "#444655",
      checked: false,
   },
   {
-    label: "Check emails",
+    text: "Check emails",
     fill: "#E31B4F",
      checked: false,
   },
   {
-    label: "Create a new template",
+    text: "Create a new template",
     fill: "#444655",
      checked: false,
   },
   {
-    label: "Check emails",
+    text: "Check emails",
     fill: "#E31B4F",
      checked: false,
   },
   {
-    label: "Create a new template",
+    text: "Create a new template",
     fill: "#444655",
      checked: false,
   },
   {
-    label: "Check emails",
+    text: "Check emails",
     fill: "#E31B4F",
      checked: false,
   },
@@ -65,11 +65,17 @@ const _list: Item[] = [
 export default function List() {
   const [list, setList] = useState(_list)
 
+  useEffect(() => {
+    fetch("/api/todo").then(res => res.json()).then(res => {
+      console.log("debug ", res)
+      setList(res.data)
+    })
+  }, [])
 
   function onClick(item: Item) {
     setList(p => p.map(d => ({
       ...d,
-      checked: d.label === item.label ? !d.checked : d.checked
+      checked: d.text === item.text ? !d.checked : d.checked
     })))
   }
 
@@ -94,7 +100,7 @@ export default function List() {
                 <div className="border-2 border-[#ff764d] w-6 h-6 rounded-full" style={{ borderColor: d.fill }}></div>
               )
             }
-            <div className="text-lg text-white">{d.label}</div>
+            <div className="text-lg text-white">{d.text}</div>
           </div>
         )
       })}
