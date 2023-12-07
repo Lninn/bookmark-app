@@ -16,16 +16,16 @@ export default function ASide({ onClose }: IProps) {
 
       <div className="flex flex-col h-full mt-24 pl-12 pb-24">
 
-        <div className="border rounded-full w-16 h-16 flex items-center justify-center">
+        <div className="border rounded-full w-20 h-20 flex items-center justify-center text-[36px]">
           A
         </div>
-        <div className="h-12"></div>
+        <div className="h-10"></div>
         <div className="capitalize text-4xl">
           <div>olivia</div>
           <div>mitchell</div>
         </div>
 
-        <div className="h-12"></div>
+        <div className="h-10"></div>
 
         <div className="flex flex-col gap-4">
           {menus.map((m, i) => {
