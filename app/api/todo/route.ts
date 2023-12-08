@@ -32,6 +32,13 @@ export async function POST(request: Request) {
     }
   }
 
+  try {
+    const exists = TodosModel.exists(data)
+    console.log("EXISTS ok" , exists)
+  } catch (error) {
+    console.log("EXISTS err" , error)
+  }
+
   const instance = new TodosModel(data)
   await instance.save()
   
