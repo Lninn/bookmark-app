@@ -54,6 +54,7 @@ export default function CreateTodo() {
             className="w-full text-xl"
             name="text"
             required
+            autoFocus
           />
         </form>
       </div>

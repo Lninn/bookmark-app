@@ -28,14 +28,27 @@ export default function List() {
     })))
   }
 
+  function getList() {
+    fetch("/api/todo").then(res => res.json()).then(res => {
+      setList(res.data)
+    })
+  }
+
   if (loading) {
     return <Skeleton />
   }
 
   return (
     <div className="w-full flex flex-col gap-2">
-      {list.map((d, i) => {
-        return <TodoItem key={i} config={d} onClick={() => onClick(d)} />
+      {list.map((d) => {
+        return (
+          <TodoItem
+            key={d.text}
+            config={d}
+            onClick={() => onClick(d)}
+            getList={getList}
+          />
+        )
       })}
 
       <div className="h-6"></div>
@@ -46,6 +59,7 @@ export default function List() {
 interface ITodoProps {
   config: Item
   onClick: () => void
+  getList: () => void
 }
 
 function calculateOpacity(dragDistance, totalWidth) {
@@ -58,12 +72,30 @@ function calculateOpacity(dragDistance, totalWidth) {
 }
 
 function TodoItem(props: ITodoProps) {
-  const { config, onClick } = props
+  const { config, onClick, getList } = props
 
   const draggableRef = useRef<HTMLDivElement>(null)
+  const removeRef = useRef(false)
 
   const [applyX, setApplyX] = useState(0)
   const applyXRef = useRef(0)
+
+  function remove() {
+    if (removeRef.current) {
+      return
+    }
+    removeRef.current = true
+
+    fetch("/api/todo" + `?text=${config.text}`, { method: "DELETE" })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          getList()
+        } else {
+          console.log(res)
+        }
+      })
+  }
 
   useEffect(() => {
     const draggable = draggableRef.current
@@ -103,6 +135,7 @@ function TodoItem(props: ITodoProps) {
 
       if (rate > 0.675) {
         draggable.style.left = -311 + "px";
+        remove()
       } else {
         draggable.style.left = 0 + "px";
         setApplyX(0)
