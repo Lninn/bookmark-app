@@ -63,6 +63,7 @@ function TodoItem(props: ITodoProps) {
   const draggableRef = useRef<HTMLDivElement>(null)
 
   const [applyX, setApplyX] = useState(0)
+  const applyXRef = useRef(0)
 
   useEffect(() => {
     const draggable = draggableRef.current
@@ -94,14 +95,28 @@ function TodoItem(props: ITodoProps) {
       // draggable.style.top = newY + "px";
 
       setApplyX(newX)
+      applyXRef.current = newX
     });
+
+    draggable.addEventListener("touchend", function() {
+      const rate = calculateOpacity(Math.abs(applyXRef.current), 311)
+
+      if  (rate > 0.55) {
+        draggable.style.left = -311 + "px";
+      } else {
+        draggable.style.left = 0 + "px";
+        setApplyX(0)
+      }
+    })
   }, [])
+
+  const rate = calculateOpacity(Math.abs(applyX), 311)
 
   return (
     <div className="relative h-[52px]">
       <div
        className="absolute top-0 left-0 right-0 bg-white h-[52px] w-full"
-        style={{ opacity: calculateOpacity(Math.abs(applyX), 311) }}
+        style={{ opacity: rate }}
       >
         <div className="flex items-center h-full pl-3 pr-3">
           <IcBaselineDeleteOutline className="text-gray-400 text-[24px]" />
@@ -117,6 +132,7 @@ function TodoItem(props: ITodoProps) {
           }
         )} 
         onClick={onClick}
+        style={{ opacity: 1 - rate }}
         ref={draggableRef}
       >
         {
