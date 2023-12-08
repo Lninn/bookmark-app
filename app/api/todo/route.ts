@@ -10,37 +10,56 @@ export async function GET() {
   return Response.json({ data: result })
 }
 
+const enum Status {
+  Validation,
+  System,
+  Exists,
+  Ok,
+}
+
+const messageMap: Record<Status, string> = {
+  [Status.Validation]: "参数错误",
+  [Status.Exists]: "当前 item 已存在",
+  [Status.System]: "系统错误",
+  [Status.Ok]: "成功",
+}
+
 export async function POST(request: Request) {
   await db()
 
   const { data } = await request.json()
 
+  let status: Status | null = null
+
   try {
     await TodosModel.validate(data)
-    console.log("验证成功")
+
+    const exists = await TodosModel.exists(data)
+    if (exists) {
+      status = Status.Exists
+    } else {
+      status = Status.Ok
+    }
   } catch (err) {
     if (err instanceof mongoose.Error.ValidationError) {
-      return Response.json({
-        success: false,
-        msg: (err as mongoose.Error.ValidationError).message
-      })
+      status = Status.Validation
     } else {
-      return Response.json({
-        success: false,
-        msg: "system errpor"
-      })
+      status = Status.System
     }
   }
 
-  try {
-    const exists = TodosModel.exists(data)
-    console.log("EXISTS ok" , exists)
-  } catch (error) {
-    console.log("EXISTS err" , error)
+  if (status !== Status.Ok) {
+    const msg = messageMap[status]
+    return Response.json({ success: false, msg, })
   }
 
-  const instance = new TodosModel(data)
-  await instance.save()
-  
-  return Response.json({ success: true })
+  try {
+    const instance = new TodosModel(data)
+    await instance.save()
+  } catch (error) {
+    return Response.json({ success: false, msg: "系统错误", })
+  }
+
+  return Response.json({ success: true, msg: "成功", })
 }
+
