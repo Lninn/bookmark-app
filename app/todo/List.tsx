@@ -37,6 +37,8 @@ export default function List() {
       {list.map((d, i) => {
         return <TodoItem key={i} config={d} onClick={() => onClick(d)} />
       })}
+
+      <div className="h-6"></div>
     </div>
   )
 }
@@ -98,10 +100,14 @@ function TodoItem(props: ITodoProps) {
   return (
     <div className="relative h-[52px]">
       <div
-       className="absolute top-0 left-0 right-0 bg-white h-[52px] w-full" 
+       className="absolute top-0 left-0 right-0 bg-white h-[52px] w-full"
         style={{ opacity: calculateOpacity(Math.abs(applyX), 311) }}
       >
-        <button>删除</button>
+        <div className="flex items-center h-full pl-3 pr-3">
+          <IcBaselineDeleteOutline className="text-gray-400 text-[24px]" />
+          <p className="flex-grow ml-2 text-gray-400">The task was deleted</p>
+          <button className="border text-[12px] py-1 px-2 rounded-2xl">UNDO</button>
+        </div>
       </div>
       <div
         className={clsx(
@@ -125,6 +131,12 @@ function TodoItem(props: ITodoProps) {
         <div className="text-lg text-white">{config.text}</div>
       </div>
     </div>
+  )
+}
+
+function IcBaselineDeleteOutline(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" {...props}><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"></path></svg>
   )
 }
 
