@@ -101,7 +101,7 @@ function TodoItem(props: ITodoProps) {
     draggable.addEventListener("touchend", function() {
       const rate = calculateOpacity(Math.abs(applyXRef.current), 311)
 
-      if  (rate > 0.55) {
+      if (rate > 0.675) {
         draggable.style.left = -311 + "px";
       } else {
         draggable.style.left = 0 + "px";
@@ -109,6 +109,14 @@ function TodoItem(props: ITodoProps) {
       }
     })
   }, [])
+
+  function onUndo() {
+    const draggable = draggableRef.current
+    if (!draggable) return
+
+    draggable.style.left = 0 + "px";
+    setApplyX(0)
+  }
 
   const rate = calculateOpacity(Math.abs(applyX), 311)
 
@@ -121,7 +129,9 @@ function TodoItem(props: ITodoProps) {
         <div className="flex items-center h-full pl-3 pr-3">
           <IcBaselineDeleteOutline className="text-gray-400 text-[24px]" />
           <p className="flex-grow ml-2 text-gray-400">The task was deleted</p>
-          <button className="border text-[12px] py-1 px-2 rounded-2xl">UNDO</button>
+          <button className="border text-[12px] py-1 px-2 rounded-2xl" onClick={onUndo}>
+            UNDO
+          </button>
         </div>
       </div>
       <div
@@ -165,15 +175,13 @@ function IcSharpCheck(props: SVGProps<SVGSVGElement>) {
 const Skeleton = () => {
   return (
     <div className="animate-pulse space-y-4">
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
-      <div className="bg-gray-300 h-4 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
+      <div className="bg-gray-300 h-6 rounded"></div>
     </div>
   );
 };
